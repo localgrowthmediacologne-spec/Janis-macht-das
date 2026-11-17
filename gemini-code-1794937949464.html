@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Schutz vor Suchmaschinen-Indexierung (Demo-Version) -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>Design-Entwurf · JANIS MACHT DAS – Allround Handwerker in Köln</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-display { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        .page-view {
+            animation: fadeIn 0.25s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Subtiles Millimeter-Raster für die Montage-Vorschau */
+        .blueprint-grid {
+            background-size: 20px 20px;
+            background-image:
+                linear-gradient(to right, rgba(24, 24, 27, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(24, 24, 27, 0.04) 1px, transparent 1px);
+        }
+
+        /* Laser-Wasserwaagen-Animation */
+        @keyframes laserPulse {
+            0%, 100% { opacity: 0.85; }
+            50% { opacity: 0.35; }
+        }
+        .laser-line {
+            animation: laserPulse 2.2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-zinc-900 antialiased selection:bg-orange-600 selection:text-white flex flex-col min-h-screen">
+
+    <!-- 1. Gut sichtbarer Demo-Hinweis-Balken ganz oben -->
+    <div class="bg-amber-400 text-zinc-950 text-xs md:text-sm font-bold py-2.5 px-4 text-center border-b border-amber-500 shadow-xs z-50">
+        🎨 UNVERBINDLICHER DESIGN-ENTWURF · Demoseite erstellt von Local Growth Media (Keine aktive Unternehmenswebsite)
+    </div>
+
+    <!-- 2. Vertrauens- & Kontaktleiste (Daten aus Website & HWK-Eintrag) -->
+    <div class="bg-zinc-900 text-zinc-200 text-xs font-medium py-2 px-4 text-center">
+        🛠️ Eingetragen bei der Handwerkskammer zu Köln (Betriebsnr. 1222948) · Einsatzgebiet: Ganz Köln · Direktwahl: 0162 2822022
+    </div>
+
+    <!-- 3. Hauptnavigation mit echten Unterseiten -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200 shadow-2xs">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
+            <!-- Marken-Signet -->
+            <button type="button" onclick="navigateTo('home')" class="flex items-center gap-3 text-left group cursor-pointer">
+                <div class="w-10 h-10 rounded-xl bg-orange-600 group-hover:bg-orange-700 text-white flex items-center justify-center font-display font-extrabold text-lg shadow-xs transition shrink-0">
+                    JM
+                </div>
+                <div>
+                    <span class="font-display text-base md:text-lg font-extrabold tracking-tight text-zinc-900 block leading-none">
+                        JANIS MACHT DAS
+                    </span>
+                    <span class="text-[11px] font-semibold text-orange-600">
+                        Allround Handwerker in #köln ❤️
+                    </span>
+                </div>
+            </button>
+
+            <!-- Desktop-Unterseiten-Navigation -->
+            <nav class="hidden lg:flex items-center gap-1 bg-zinc-100 p-1 rounded-xl border border-zinc-200/80">
+                <button type="button" onclick="navigateTo('home')" data-nav="home" class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition bg-white text-zinc-900 shadow-2xs cursor-pointer">
+                    Startseite &amp; Raum-Planer
+                </button>
+                <button type="button" onclick="navigateTo('leistungen')" data-nav="leistungen" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-zinc-600 hover:text-zinc-900 transition cursor-pointer">
+                    Leistungen &amp; Film/TV
+                </button>
+                <button type="button" onclick="navigateTo('rechner')" data-nav="rechner" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-zinc-600 hover:text-zinc-900 transition cursor-pointer">
+                    To-Do- &amp; Preisrechner
+                </button>
+                <button type="button" onclick="navigateTo('kontakt')" data-nav="kontakt" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-zinc-600 hover:text-zinc-900 transition cursor-pointer">
+                    Über Janis &amp; Kontakt
+                </button>
+            </nav>
+
+            <!-- Primärer CTA -->
+            <button type="button" onclick="navigateTo('rechner')" class="bg-orange-600 hover:bg-orange-700 text-white font-bold text-xs md:text-sm px-4 py-2.5 rounded-xl transition shadow-xs cursor-pointer">
+                Projekt anfragen
+            </button>
+        </div>
+
+        <!-- Mobile Unterseiten-Leiste -->
+        <div class="lg:hidden border-t border-zinc-200 bg-stone-50 px-2 py-1.5 flex justify-around text-xs font-semibold overflow-x-auto">
+            <button type="button" onclick="navigateTo('home')" data-nav-mob="home" class="mob-nav-btn px-3 py-1.5 rounded-lg text-orange-600 bg-white shadow-2xs">Start</button>
+            <button type="button" onclick="navigateTo('leistungen')" data-nav-mob="leistungen" class="mob-nav-btn px-3 py-1.5 rounded-lg text-zinc-600">Leistungen</button>
+            <button type="button" onclick="navigateTo('rechner')" data-nav-mob="rechner" class="mob-nav-btn px-3 py-1.5 rounded-lg text-zinc-600">Preisrechner</button>
+            <button type="button" onclick="navigateTo('kontakt')" data-nav-mob="kontakt" class="mob-nav-btn px-3 py-1.5 rounded-lg text-zinc-600">Kontakt</button>
+        </div>
+    </header>
+
+    <!-- HAUPTINHALT (Multi-Page Container) -->
+    <main class="flex-1">
+
+        <!-- ========================================================= -->
+        <!-- UNTERSEITE 1: STARTSEITE & INTERAKTIVER MONTAGE-PLANER    -->
+        <!-- ========================================================= -->
+        <div id="view-home" class="page-view">
+            <section class="pt-10 pb-16 md:pt-14 md:pb-20 px-4 bg-gradient-to-b from-orange-50/70 via-white to-stone-50 border-b border-zinc-200">
+                <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Linke Spalte -->
+                    <div class="lg:col-span-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 bg-white border border-zinc-200 rounded-full px-4 py-1.5 text-xs text-zinc-800 font-semibold shadow-2xs mb-5">
+                            <span class="text-amber-500">★★★★★</span>
+                            <span>145+ Top-Bewertungen (Google, MyHammer &amp; Facebook)</span>
+                        </div>
+                        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 leading-[1.12] mb-5">
+                            Deine helfende Hand für <span class="text-orange-600">Montagen, DIY &amp; Ausbau</span> in Köln
+                        </h1>
+                        <p class="text-zinc-600 text-base md:text-lg mb-7 leading-relaxed">
+                            Kein Stress mit schiefen Regalen, komplizierten Möbel-Anleitungen oder offenen Renovierungs-Baustellen: Ich packe sauber, pünktlich und mit Profi-Werkzeug an – vom Kölner Altbau bis zum Film- &amp; TV-Set.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                            <button type="button" onclick="navigateTo('rechner')" class="bg-orange-600 hover:bg-orange-700 text-white font-bold px-7 py-4 rounded-xl text-sm md:text-base transition shadow-md cursor-pointer">
+                                To-Do-Liste &amp; Preis berechnen →
+                            </button>
+                            <a href="tel:01622822022" class="bg-white hover:bg-zinc-100 border border-zinc-300 text-zinc-900 font-bold px-6 py-4 rounded-xl text-sm md:text-base transition text-center">
+                                📞 0162 2822022
+                            </a>
+                        </div>
+
+                        <!-- Bewertungs- & HWK-Leiste (aus der Original-Website übernommen) -->
+                        <div class="grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0 mt-9 pt-7 border-t border-zinc-200">
+                            <div class="bg-white border border-zinc-200/80 rounded-xl p-3 text-center lg:text-left">
+                                <div class="text-xs font-extrabold text-zinc-900">Google</div>
+                                <div class="text-amber-500 text-xs">★★★★★</div>
+                                <div class="text-[11px] text-zinc-500 font-medium">128+ Bewertungen</div>
+                            </div>
+                            <div class="bg-white border border-zinc-200/80 rounded-xl p-3 text-center lg:text-left">
+                                <div class="text-xs font-extrabold text-zinc-900">MyHammer</div>
+                                <div class="text-amber-500 text-xs">★★★★★</div>
+                                <div class="text-[11px] text-zinc-500 font-medium">13 Bewertungen</div>
+                            </div>
+                            <div class="bg-white border border-zinc-200/80 rounded-xl p-3 text-center lg:text-left">
+                                <div class="text-xs font-extrabold text-zinc-900">HWK Köln</div>
+                                <div class="text-emerald-600 text-xs font-bold">✓ Geprüft</div>
+                                <div class="text-[11px] text-zinc-500 font-medium">Nr. 1222948</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rechte Spalte: Interaktiver Kölner Wohnraum- & Montage-Konfigurator -->
+                    <div class="lg:col-span-6">
+                        <div class="bg-white p-4 rounded-3xl shadow-xl border border-zinc-200">
+                            <!-- Illustriertes Zimmer mit Laser-Wasserwaage -->
+                            <div class="relative h-72 sm:h-80 rounded-2xl overflow-hidden border border-zinc-200 blueprint-grid bg-gradient-to-b from-stone-100 to-stone-200/60">
+                                
+                                <!-- Status-Badge oben -->
+                                <div class="absolute top-3 left-3 z-30 flex items-center gap-2">
+                                    <span class="bg-zinc-900 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+                                        Interaktiver Montage-Check
+                                    </span>
+                                    <span id="laserBadge" class="bg-emerald-500/15 border border-emerald-500/40 text-emerald-800 text-[10px] font-bold px-2.5 py-1 rounded-full">
+                                        Laser-Lot: 0,0° exakt
+                                    </span>
+                                </div>
+
+                                <!-- Element 1: Deckenlampe & Gardinenstange -->
+                                <div id="vis-lampe" class="transition-all duration-300 opacity-100">
+                                    <!-- Pendelleuchte -->
+                                    <div class="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col items-center">
+                                        <div class="w-0.5 h-8 bg-zinc-800"></div>
+                                        <div class="w-14 h-5 bg-zinc-900 rounded-t-full"></div>
+                                        <div class="w-24 h-12 bg-amber-300/35 blur-md -mt-1 rounded-full"></div>
+                                    </div>
+                                    <!-- Gardinenstange links -->
+                                    <div class="absolute top-11 left-6 w-24 h-1.5 bg-zinc-700 rounded-full"></div>
+                                </div>
+
+                                <!-- Element 2: Wandregal & TV-Wandhalterung + grüne Laser-Linie -->
+                                <div id="vis-regal" class="transition-all duration-300 opacity-100">
+                                    <!-- Grüne Kreuzlinienlaser-Markierung -->
+                                    <div class="laser-line absolute top-28 inset-x-0 h-[1.5px] bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.9)] z-10"></div>
+                                    <!-- Schwebendes Eichen-Wandregal -->
+                                    <div class="absolute top-24 right-8 w-36">
+                                        <div class="flex items-end justify-around px-3 mb-0.5">
+                                            <div class="w-4 h-6 bg-emerald-700 rounded-t-sm"></div>
+                                            <div class="w-3 h-8 bg-orange-600 rounded-xs"></div>
+                                            <div class="w-3 h-7 bg-zinc-700 rounded-xs"></div>
+                                        </div>
+                                        <div class="h-3 bg-amber-800 rounded-xs shadow-md border-b-2 border-amber-950"></div>
+                                    </div>
+                                    <!-- Wandbild / Deko links -->
+                                    <div class="absolute top-20 left-8 w-20 h-24 bg-white border-4 border-zinc-800 shadow-sm p-2 flex flex-col justify-between">
+                                        <div class="w-full h-10 bg-orange-100 rounded-xs"></div>
+                                        <div class="h-1.5 w-10 bg-zinc-300 rounded-full"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Element 3: Möbelaufbau (Sideboard / Kleiderschrank) -->
+                                <div id="vis-moebel" class="transition-all duration-300 opacity-100">
+                                    <div class="absolute bottom-14 left-1/2 -translate-x-1/2 w-52 h-20 bg-white border-2 border-zinc-800 rounded-t-md shadow-md grid grid-cols-3 divide-x-2 divide-zinc-800">
+                                        <div class="p-2 flex items-center justify-end"><div class="w-1 h-4 bg-orange-600 rounded-full"></div></div>
+                                        <div class="p-2 flex flex-col justify-between">
+                                            <div class="h-1/2 border-b border-zinc-300"></div>
+                                            <div class="w-4 h-1 bg-zinc-800 mx-auto rounded-full"></div>
+                                        </div>
+                                        <div class="p-2 flex items-center justify-start"><div class="w-1 h-4 bg-orange-600 rounded-full"></div></div>
+                                    </div>
+                                    <!-- Möbelfüße -->
+                                    <div class="absolute bottom-11 left-1/2 -translate-x-1/2 w-48 flex justify-between px-2">
+                                        <div class="w-1.5 h-3 bg-zinc-900"></div>
+                                        <div class="w-1.5 h-3 bg-zinc-900"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Element 4: Bodenverlegung (Eichenparkett vs. Rohboden) -->
+                                <div id="vis-boden" class="absolute bottom-0 inset-x-0 h-11 transition-colors duration-300 border-t border-zinc-400/40" style="background: repeating-linear-gradient(90deg, #C89D6C 0px, #C89D6C 48px, #B58958 48px, #B58958 50px);">
+                                </div>
+                            </div>
+
+                            <!-- Interaktive Aufgaben-Auswahl -->
+                            <div class="pt-4 px-1 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-zinc-700">Klicke an, was bei dir ansteht:</span>
+                                    <span id="roomEstimateBadge" class="text-xs font-extrabold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-lg">
+                                        4 Aufgaben · Richtwert ab 240 €
+                                    </span>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button type="button" onclick="toggleRoomTask('regal', 'Wandregale & TV-Halterung montieren', 55, this)" data-active="true" class="task-toggle text-left p-2.5 rounded-xl border-2 border-orange-600 bg-orange-50/60 transition cursor-pointer flex items-center justify-between">
+                                        <span class="text-xs font-bold text-zinc-900">📐 Wandregal &amp; Deko</span>
+                                        <span class="text-xs font-extrabold text-orange-600">✓</span>
+                                    </button>
+                                    <button type="button" onclick="toggleRoomTask('lampe', 'Lampen & Gardinenstangen anbringen', 45, this)" data-active="true" class="task-toggle text-left p-2.5 rounded-xl border-2 border-orange-600 bg-orange-50/60 transition cursor-pointer flex items-center justify-between">
+                                        <span class="text-xs font-bold text-zinc-900">💡 Lampen &amp; Schienen</span>
+                                        <span class="text-xs font-extrabold text-orange-600">✓</span>
+                                    </button>
+                                    <button type="button" onclick="toggleRoomTask('moebel', 'Möbel- & Schrankaufbau', 65, this)" data-active="true" class="task-toggle text-left p-2.5 rounded-xl border-2 border-orange-600 bg-orange-50/60 transition cursor-pointer flex items-center justify-between">
+                                        <span class="text-xs font-bold text-zinc-900">🪚 Möbelmontage</span>
+                                        <span class="text-xs font-extrabold text-orange-600">✓</span>
+                                    </button>
+                                    <button type="button" onclick="toggleRoomTask('boden', 'Laminat- & Vinylboden verlegen', 75, this)" data-active="true" class="task-toggle text-left p-2.5 rounded-xl border-2 border-orange-600 bg-orange-50/60 transition cursor-pointer flex items-center justify-between">
+                                        <span class="text-xs font-bold text-zinc-900">🪵 Bodenverlegung</span>
+                                        <span class="text-xs font-extrabold text-orange-600">✓</span>
+                                    </button>
+                                </div>
+
+                                <button type="button" onclick="transferRoomToCalculator()" class="w-full bg-zinc-900 hover:bg-zinc-800 text-white font-bold py-3 rounded-xl text-xs transition cursor-pointer">
+                                    Ausgewählte To-dos direkt in den Preisrechner übernehmen →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Leistungs-Karten (alle Leistungen aus dem Screenshot strukturiert) -->
+            <section class="py-16 px-4 bg-white border-b border-zinc-200">
+                <div class="max-w-6xl mx-auto">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                        <div>
+                            <span class="text-orange-600 text-xs font-bold uppercase tracking-wider">Zuverlässig in ganz Köln</span>
+                            <h2 class="font-display text-2xl md:text-4xl font-extrabold text-zinc-900 mt-1">
+                                Wobei ich dich unterstütze
+                            </h2>
+                        </div>
+                        <button type="button" onclick="navigateTo('leistungen')" class="text-sm font-bold text-orange-600 hover:underline self-start md:self-auto cursor-pointer">
+                            Alle Details &amp; Ablauf ansehen →
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <div class="bg-stone-50 border border-zinc-200 p-6 rounded-2xl">
+                            <div class="text-2xl mb-3">🪚</div>
+                            <h3 class="font-bold text-zinc-900 mb-2">Möbelmontage &amp; Küchenhilfe</h3>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Fachgerechter Aufbau von Kleiderschränken, Betten, Regalsystemen und Kommoden – stabil ausgerichtet und fest verankert.</p>
+                        </div>
+                        <div class="bg-stone-50 border border-zinc-200 p-6 rounded-2xl">
+                            <div class="text-2xl mb-3">🖼️</div>
+                            <h3 class="font-bold text-zinc-900 mb-2">Wanddekorationen &amp; Kleinmontagen</h3>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Bilderwände, Spiegel, TV-Halterungen, Gardinenstangen und Regale sicher montiert – auch in anspruchsvollen Altbauwänden.</p>
+                        </div>
+                        <div class="bg-stone-50 border border-zinc-200 p-6 rounded-2xl">
+                            <div class="text-2xl mb-3">🪵</div>
+                            <h3 class="font-bold text-zinc-900 mb-2">Bodenverlegung</h3>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Saubere Verlegung von Laminat, Klick-Vinyl und Trittschalldämmung inklusive passgenauer Sockelleisten.</p>
+                        </div>
+                        <div class="bg-stone-50 border border-zinc-200 p-6 rounded-2xl">
+                            <div class="text-2xl mb-3">🛠️</div>
+                            <h3 class="font-bold text-zinc-900 mb-2">Do-it-yourself (DIY) Projekte</h3>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Du hast ein eigenes Wohn- oder Bauprojekt gestartet und brauchst einen erfahrenen Handwerker als tatkräftige Unterstützung?</p>
+                        </div>
+                        <div class="bg-stone-50 border border-zinc-200 p-6 rounded-2xl">
+                            <div class="text-2xl mb-3">🚐</div>
+                            <h3 class="font-bold text-zinc-900 mb-2">Transporthilfe in Köln</h3>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Abholung von Baumarkt-Einkäufen oder Möbeln inkl. sicherem Transport und direktem Aufbau bei dir vor Ort.</p>
+                        </div>
+                        <div class="bg-zinc-900 text-white p-6 rounded-2xl">
+                            <div class="text-2xl mb-3">🎬</div>
+                            <h3 class="font-bold text-white mb-2">Film &amp; Fernsehen (Set-Support)</h3>
+                            <p class="text-xs text-zinc-300 leading-relaxed">Schnelle, flexible Handwerks- und Montageunterstützung für Requisite, Kulissenbau und Dreharbeiten in der Medienstadt Köln.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- UNTERSEITE 2: LEISTUNGEN, FILM/TV & ABLAUF                -->
+        <!-- ========================================================= -->
+        <div id="view-leistungen" class="page-view hidden">
+            <section class="py-14 px-4 bg-gradient-to-b from-orange-50/70 to-stone-50 border-b border-zinc-200">
+                <div class="max-w-5xl mx-auto">
+                    <span class="text-orange-600 text-xs font-bold uppercase tracking-wider">Handwerkskammer zu Köln · Nr. 1222948</span>
+                    <h1 class="font-display text-3xl md:text-5xl font-extrabold text-zinc-900 mt-1 mb-4">
+                        Leistungen &amp; Arbeitsweise
+                    </h1>
+                    <p class="text-zinc-600 text-base max-w-2xl leading-relaxed">
+                        Egal ob eine einzelne Lampe aufgehängt werden muss, ein kompletter Kleiderschrank aufgebaut wird oder ein TV-Set schnelle Unterstützung braucht: Du bekommst saubere Arbeit ohne lange Wartezeiten.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-14 px-4 bg-white border-b border-zinc-200">
+                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-stone-50 border border-zinc-200 p-7 rounded-2xl">
+                        <div class="text-xs font-bold uppercase text-orange-600 mb-1">Privatkunden &amp; Haushalte</div>
+                        <h3 class="font-display text-xl font-extrabold text-zinc-900 mb-3">Montageservice &amp; DIY-Unterstützung</h3>
+                        <ul class="space-y-2 text-sm text-zinc-700">
+                            <li>✓ Aufbau von Möbeln aller Hersteller (IKEA PAX, Besta, Betten, Esstische)</li>
+                            <li>✓ Sichere Dübelmontage in Altbauwänden (Regale, TV-Halterungen, Spiegel)</li>
+                            <li>✓ Anbringen von Gardinenstangen, Vorhangschienen &amp; Deckenleuchten</li>
+                            <li>✓ Verlegen von Laminat- und Vinylböden inkl. Zuschnitt</li>
+                            <li>✓ Gemeinsame Umsetzung deiner eigenen DIY-Ideen mit Profi-Werkzeug</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-stone-50 border border-zinc-200 p-7 rounded-2xl">
+                        <div class="text-xs font-bold uppercase text-orange-600 mb-1">Medienstadt Köln</div>
+                        <h3 class="font-display text-xl font-extrabold text-zinc-900 mb-3">Film, Fernsehen &amp; Event-Montagen</h3>
+                        <p class="text-sm text-zinc-600 leading-relaxed mb-4">
+                            In Köln wird ständig gedreht – und oft muss am Set kurzfristig etwas gebaut, umgebaut oder sicher befestigt werden. Ich unterstütze Produktionsfirmen, Ausstatter und Requisiteure flexibel, diskret und lösungsorientiert vor Ort.
+                        </p>
+                        <button type="button" onclick="navigateTo('rechner')" class="text-xs font-bold text-orange-600 hover:underline cursor-pointer">
+                            Einsatz oder Projekt anfragen →
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3-Schritte-Ablauf -->
+            <section class="py-14 px-4 bg-stone-50">
+                <div class="max-w-5xl mx-auto">
+                    <h2 class="font-display text-2xl md:text-3xl font-extrabold text-zinc-900 text-center mb-10">So unkompliziert läuft dein Auftrag ab</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-white border border-zinc-200 p-6 rounded-2xl">
+                            <div class="w-8 h-8 rounded-lg bg-orange-600 text-white font-bold text-sm flex items-center justify-center mb-3">1</div>
+                            <h4 class="font-bold text-zinc-900 mb-1.5">To-dos kurz durchgeben</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Nutze den 30-Sekunden-Rechner oder ruf direkt unter 0162 2822022 an und sag mir, was gemacht werden soll.</p>
+                        </div>
+                        <div class="bg-white border border-zinc-200 p-6 rounded-2xl">
+                            <div class="w-8 h-8 rounded-lg bg-orange-600 text-white font-bold text-sm flex items-center justify-center mb-3">2</div>
+                            <h4 class="font-bold text-zinc-900 mb-1.5">Transparente Einschätzung</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Du erhältst sofort eine ehrliche Kosteneinschätzung und einen zeitnahen Wunschtermin in Köln.</p>
+                        </div>
+                        <div class="bg-white border border-zinc-200 p-6 rounded-2xl">
+                            <div class="w-8 h-8 rounded-lg bg-orange-600 text-white font-bold text-sm flex items-center justify-center mb-3">3</div>
+                            <h4 class="font-bold text-zinc-900 mb-1.5">Saubere Umsetzung</h4>
+                            <p class="text-xs text-zinc-600 leading-relaxed">Ich bringe das passende Werkzeug und Befestigungsmaterial mit und hinterlasse alles ordentlich.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- UNTERSEITE 3: 30-SEKUNDEN-TO-DO- & PREISRECHNER           -->
+        <!-- ========================================================= -->
+        <div id="view-rechner" class="page-view hidden">
+            <section class="py-14 px-4 bg-stone-50">
+                <div class="max-w-2xl mx-auto">
+                    <div class="text-center mb-8">
+                        <span class="text-orange-600 text-xs font-bold uppercase tracking-wider">Sofort-Richtwert</span>
+                        <h1 class="font-display text-3xl md:text-4xl font-extrabold text-zinc-900 mt-1">Was steht bei dir an?</h1>
+                        <p class="text-zinc-600 text-sm mt-2">Wähle deinen Schwerpunkt und den ungefähren Zeitaufwand für eine unverbindliche Preisschätzung.</p>
+                    </div>
+
+                    <div class="bg-white border border-zinc-200 rounded-2xl p-6 md:p-8 shadow-lg">
+                        <!-- Progress Bar -->
+                        <div class="mb-6">
+                            <div class="flex justify-between text-xs text-zinc-500 font-medium mb-2">
+                                <span id="stepLabel">Schritt 1 von 3</span>
+                                <span id="stepPercent">33%</span>
+                            </div>
+                            <div class="w-full bg-zinc-100 h-2 rounded-full overflow-hidden">
+                                <div id="progressBar" class="bg-orange-600 h-full transition-all duration-300" style="width: 33%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Schritt 1: Schwerpunkt -->
+                        <div id="step1" class="step-panel space-y-3">
+                            <h3 class="text-base md:text-lg font-bold text-zinc-900 mb-3">1. Wobei brauchst du Unterstützung?</h3>
+                            
+                            <button type="button" onclick="selectService('Möbelmontage & Schrankaufbau', 65)" class="w-full text-left p-4 rounded-xl border border-zinc-200 bg-stone-50 hover:border-orange-500 hover:bg-orange-50/40 transition flex justify-between items-center cursor-pointer">
+                                <div>
+                                    <div class="font-bold text-zinc-900">Möbelmontage &amp; Schrankaufbau</div>
+                                    <div class="text-xs text-zinc-500">Kleiderschränke, Kommoden, Betten &amp; Regalsysteme</div>
+                                </div>
+                                <span class="text-orange-600 font-bold text-xs md:text-sm shrink-0 ml-2">ab 65 €</span>
+                            </button>
+
+                            <button type="button" onclick="selectService('Wanddekoration, Lampen & Kleinmontagen', 55)" class="w-full text-left p-4 rounded-xl border border-zinc-200 bg-stone-50 hover:border-orange-500 hover:bg-orange-50/40 transition flex justify-between items-center cursor-pointer">
+                                <div>
+                                    <div class="font-bold text-zinc-900">Wanddekoration, Lampen &amp; Kleinmontagen</div>
+                                    <div class="text-xs text-zinc-500">Regale, TV-Wandhalterung, Gardinenstangen &amp; Leuchten</div>
+                                </div>
+                                <span class="text-orange-600 font-bold text-xs md:text-sm shrink-0 ml-2">ab 55 €</span>
+                            </button>
+
+                            <button type="button" onclick="selectService('Bodenverlegung (Laminat / Vinyl)', 140)" class="w-full text-left p-4 rounded-xl border border-zinc-200 bg-stone-50 hover:border-orange-500 hover:bg-orange-50/40 transition flex justify-between items-center cursor-pointer">
+                                <div>
+                                    <div class="font-bold text-zinc-900">Bodenverlegung (Laminat / Klick-Vinyl)</div>
+                                    <div class="text-xs text-zinc-500">Inklusive Trittschalldämmung und Fußleisten</div>
+                                </div>
+                                <span class="text-orange-600 font-bold text-xs md:text-sm shrink-0 ml-2">ab 140 €</span>
+                            </button>
+
+                            <button type="button" onclick="selectService('DIY-Projekt, Transporthilfe oder Film/TV-Einsatz', 85)" class="w-full text-left p-4 rounded-xl border border-zinc-200 bg-stone-50 hover:border-orange-500 hover:bg-orange-50/40 transition flex justify-between items-center cursor-pointer">
+                                <div>
+                                    <div class="font-bold text-zinc-900">DIY-Projekt, Transporthilfe oder Film/TV-Set</div>
+                                    <div class="text-xs text-zinc-500">Flexible Handwerker-Unterstützung nach Bedarf</div>
+                                </div>
+                                <span class="text-orange-600 font-bold text-xs md:text-sm shrink-0 ml-2">ab 85 €</span>
+                            </button>
+                        </div>
+
+                        <!-- Schritt 2: Umfang -->
+                        <div id="step2" class="step-panel hidden space-y-4">
+                            <h3 class="text-base md:text-lg font-bold text-zinc-900">2. Wie groß ist der geplante Umfang?</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <button type="button" onclick="selectSize('Kleiner Einsatz (ca. 1–2 Std.)', 1)" class="p-4 rounded-xl border border-zinc-200 bg-stone-50 hover:border-orange-500 hover:bg-orange-50/40 transition text-center cursor-pointer">
+                                    <div class="font-bold text-zinc-900 text-sm">Klein</div>
+                                    <div class="text-xs text-zinc-500 mt-1">1–2 Aufgaben (ca. 1–2 Std.)</div>
+                                </button>
+                                <button type="button" onclick="selectSize('Halber Projekttag (ca. 3–4 Std.)', 2.2)" class="p-4 rounded-xl border border-zinc-200 bg-stone-50 hover:border-orange-500 hover:bg-orange-50/40 transition text-center cursor-pointer">
+                                    <div class="font-bold text-zinc-900 text-sm">Mittel</div>
+                                    <div class="text-xs text-zinc-500 mt-1">Mehrere To-dos (ca. 3–4 Std.)</div>
+                                </button>
+                                <button type="button" onclick="selectSize('Ganzer Projekttag (ca. 6–8 Std.)', 3.8)" class="p-4 rounded-xl border border-zinc-200 bg-stone-50 hover:border-orange-500 hover:bg-orange-50/40 transition text-center cursor-pointer">
+                                    <div class="font-bold text-zinc-900 text-sm">Großprojekt</div>
+                                    <div class="text-xs text-zinc-500 mt-1">Kompletter Raum / Tag</div>
+                                </button>
+                            </div>
+                            <button type="button" onclick="goStep(1)" class="text-xs text-zinc-500 hover:text-zinc-900 font-medium pt-2 cursor-pointer">← Zurück</button>
+                        </div>
+
+                        <!-- Schritt 3: Ergebnis & Demo-Formular -->
+                        <div id="step3" class="step-panel hidden space-y-5">
+                            <div class="bg-orange-50 border border-orange-200 rounded-xl p-5 text-center">
+                                <span class="text-xs text-orange-800 uppercase tracking-wider font-bold">Unverbindliche Preis-Schätzung</span>
+                                <div id="priceRange" class="text-2xl md:text-3xl font-extrabold text-zinc-900 my-2">145 € – 190 €</div>
+                                <p id="summaryText" class="text-xs text-zinc-600"></p>
+                            </div>
+
+                            <form id="leadForm" class="space-y-3">
+                                <input type="hidden" name="access_key" value="DEIN_WEB3FORMS_KEY">
+                                <input type="hidden" name="subject" value="Neue Projektanfrage - JANIS MACHT DAS">
+                                <input type="hidden" id="hiddenDetails" name="kalkulation">
+
+                                <div>
+                                    <label class="block text-xs text-zinc-600 font-semibold mb-1">Dein Name *</label>
+                                    <input type="text" name="name" required placeholder="Max Mustermann" class="w-full bg-stone-50 border border-zinc-300 rounded-lg px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:border-orange-600 focus:bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-zinc-600 font-semibold mb-1">Telefonnummer für Rückruf / WhatsApp *</label>
+                                    <input type="tel" name="phone" required placeholder="0162 / 0221..." class="w-full bg-stone-50 border border-zinc-300 rounded-lg px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:border-orange-600 focus:bg-white">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-zinc-600 font-semibold mb-1">Kölner Stadtteil &amp; kurze Beschreibung</label>
+                                    <input type="text" name="details" placeholder="z.B. Nippes / Ehrenfeld, PAX-Schrank & 2 Lampen" class="w-full bg-stone-50 border border-zinc-300 rounded-lg px-4 py-2.5 text-sm text-zinc-900 focus:outline-none focus:border-orange-600 focus:bg-white">
+                                </div>
+
+                                <button type="submit" id="submitBtn" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3.5 rounded-lg text-sm transition shadow-sm cursor-pointer">
+                                    Unverbindlich Termin anfragen
+                                </button>
+                                <p class="text-[11px] text-zinc-400 text-center">
+                                    Hinweis: Funktions-Vorschau im Rahmen des Design-Entwurfs von Local Growth Media.
+                                </p>
+                            </form>
+
+                            <div id="successBox" class="hidden bg-emerald-50 border border-emerald-300 text-emerald-900 p-4 rounded-xl text-sm text-center">
+                                ✅ <strong>Vorschau-Bestätigung:</strong> So sieht die Sofort-Bestätigung für deine Kunden nach dem Absenden aus.
+                            </div>
+
+                            <button type="button" onclick="goStep(1)" class="text-xs text-zinc-500 hover:text-zinc-900 block mx-auto font-medium cursor-pointer">Rechner neu starten</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- UNTERSEITE 4: ÜBER JANIS, KONTAKT & RECHTLICHES-VORSCHAU  -->
+        <!-- ========================================================= -->
+        <div id="view-kontakt" class="page-view hidden">
+            <section class="py-14 px-4 bg-gradient-to-b from-orange-50/70 to-stone-50 border-b border-zinc-200">
+                <div class="max-w-5xl mx-auto">
+                    <span class="text-orange-600 text-xs font-bold uppercase tracking-wider">Köln-Nippes &amp; ganz Köln</span>
+                    <h1 class="font-display text-3xl md:text-5xl font-extrabold text-zinc-900 mt-1 mb-4">
+                        Über Janis &amp; Direktkontakt
+                    </h1>
+                    <p class="text-zinc-600 text-base max-w-2xl leading-relaxed">
+                        Ehrliches Handwerk, direkt auf den Punkt: Mit über 145 positiven Bewertungen auf Google, MyHammer und Facebook bin ich dein verlässlicher Ansprechpartner für Montagen und Ausbau in Köln.
+                    </p>
+                </div>
+            </section>
+
+            <section class="py-14 px-4 bg-white">
+                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-stone-50 border border-zinc-200 p-7 rounded-2xl space-y-5">
+                        <div>
+                            <h2 class="font-display text-2xl font-extrabold text-zinc-900">Direktkontakt</h2>
+                            <p class="text-xs text-zinc-500 mt-1">JANIS MACHT DAS – Allround Handwerker in #köln</p>
+                        </div>
+                        <ul class="space-y-3 text-sm text-zinc-700">
+                            <li>📍 <strong>Standort:</strong> Wirtsgasse 24, 50739 Köln-Nippes</li>
+                            <li>📱 <strong>Telefon &amp; WhatsApp:</strong> <a href="tel:01622822022" class="text-orange-600 font-bold hover:underline">0162 2822022</a></li>
+                            <li>✉️ <strong>E-Mail:</strong> <a href="mailto:kontakt@janis-macht-das.de" class="text-orange-600 font-bold hover:underline">kontakt@janis-macht-das.de</a></li>
+                            <li>🏛️ <strong>Handwerkskammer zu Köln:</strong> Betriebsnummer 1222948</li>
+                        </ul>
+                        <a href="tel:01622822022" class="block w-full text-center bg-zinc-900 hover:bg-zinc-800 text-white font-bold py-3.5 rounded-xl text-sm transition">
+                            Jetzt direkt anrufen: 0162 2822022
+                        </a>
+                    </div>
+
+                    <div class="bg-stone-50 border border-zinc-200 p-7 rounded-2xl space-y-4">
+                        <div class="inline-block bg-amber-100 text-amber-900 text-[11px] font-bold px-2.5 py-1 rounded-md">
+                            Rechtliches-Struktur (Vorschau für Live-Schaltung)
+                        </div>
+                        <h2 class="font-display text-2xl font-extrabold text-zinc-900">Impressum &amp; Datenschutz</h2>
+                        <p class="text-xs text-zinc-600 leading-relaxed">
+                            Bei der Live-Schaltung unter <strong>janis-macht-das.de</strong> (inklusive SSL-Verschlüsselung `https://`) werden hier deine vollständigen Pflichtangaben gemäß § 5 DDG hinterlegt:
+                        </p>
+                        <div class="bg-white border border-zinc-200 rounded-xl p-4 text-xs text-zinc-600 space-y-1">
+                            <div><strong>JANIS MACHT DAS</strong></div>
+                            <div>Wirtsgasse 24, 50739 Köln</div>
+                            <div>E-Mail: kontakt@janis-macht-das.de · Tel.: 0162 2822022</div>
+                            <div>Zuständige Kammer: Handwerkskammer zu Köln (Betriebsnr. 1222948)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer mit Demo-Hinweis -->
+    <footer class="py-12 px-4 bg-zinc-950 text-zinc-300 text-sm border-t border-zinc-800">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <div class="font-display text-xl font-extrabold text-white">JANIS MACHT DAS</div>
+                <div class="text-xs text-zinc-400 mt-1">Allround Handwerker in #köln · HWK Köln Betriebsnr. 1222948</div>
+            </div>
+
+            <div class="flex flex-wrap gap-4 text-xs font-medium">
+                <button type="button" onclick="navigateTo('home')" class="hover:text-white transition cursor-pointer">Startseite</button>
+                <button type="button" onclick="navigateTo('leistungen')" class="hover:text-white transition cursor-pointer">Leistungen</button>
+                <button type="button" onclick="navigateTo('rechner')" class="hover:text-white transition cursor-pointer">Preisrechner</button>
+                <button type="button" onclick="navigateTo('kontakt')" class="hover:text-white transition cursor-pointer">Kontakt &amp; Impressum</button>
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto mt-8 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-zinc-500">
+            <span>Unverbindlicher Design-Entwurf erstellt von <strong>Local Growth Media</strong> · Köln</span>
+            <span>Demoseite – nicht öffentlich indexiert</span>
+        </div>
+    </footer>
+
+    <script>
+        /* --- 1. Multi-Page Navigation --- */
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('view-' + pageId);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.nav === pageId) {
+                    btn.classList.add('bg-white', 'text-zinc-900', 'shadow-2xs', 'font-semibold');
+                    btn.classList.remove('text-zinc-600', 'font-medium');
+                } else {
+                    btn.classList.remove('bg-white', 'text-zinc-900', 'shadow-2xs', 'font-semibold');
+                    btn.classList.add('text-zinc-600', 'font-medium');
+                }
+            });
+
+            document.querySelectorAll('.mob-nav-btn').forEach(btn => {
+                if (btn.dataset.navMob === pageId) {
+                    btn.classList.add('text-orange-600', 'bg-white', 'shadow-2xs');
+                    btn.classList.remove('text-zinc-600');
+                } else {
+                    btn.classList.remove('text-orange-600', 'bg-white', 'shadow-2xs');
+                    btn.classList.add('text-zinc-600');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* --- 2. Interaktiver Wohnraum- & Montage-Konfigurator --- */
+        const activeRoomTasks = {
+            regal: { label: 'Wandregal & Deko', price: 55 },
+            lampe: { label: 'Lampen & Schienen', price: 45 },
+            moebel: { label: 'Möbelmontage', price: 65 },
+            boden: { label: 'Bodenverlegung', price: 75 }
+        };
+
+        function toggleRoomTask(key, label, price, btn) {
+            const isActive = btn.dataset.active === 'true';
+            const visEl = document.getElementById('vis-' + key);
+
+            if (isActive) {
+                btn.dataset.active = 'false';
+                btn.classList.remove('border-orange-600', 'bg-orange-50/60');
+                btn.classList.add('border-zinc-200', 'bg-stone-50', 'opacity-65');
+                btn.querySelector('span:last-child').innerText = '+';
+                btn.querySelector('span:last-child').classList.replace('text-orange-600', 'text-zinc-400');
+                delete activeRoomTasks[key];
+
+                if (key === 'boden') {
+                    visEl.style.background = '#D6D3D1';
+                } else {
+                    visEl.classList.add('opacity-15');
+                }
+            } else {
+                btn.dataset.active = 'true';
+                btn.classList.add('border-orange-600', 'bg-orange-50/60');
+                btn.classList.remove('border-zinc-200', 'bg-stone-50', 'opacity-65');
+                btn.querySelector('span:last-child').innerText = '✓';
+                btn.querySelector('span:last-child').classList.replace('text-zinc-400', 'text-orange-600');
+                activeRoomTasks[key] = { label, price };
+
+                if (key === 'boden') {
+                    visEl.style.background = 'repeating-linear-gradient(90deg, #C89D6C 0px, #C89D6C 48px, #B58958 48px, #B58958 50px)';
+                } else {
+                    visEl.classList.remove('opacity-15');
+                }
+            }
+
+            updateRoomBadge();
+        }
+
+        function updateRoomBadge() {
+            const keys = Object.keys(activeRoomTasks);
+            const sum = keys.reduce((acc, k) => acc + activeRoomTasks[k].price, 0);
+            const badge = document.getElementById('roomEstimateBadge');
+            if (keys.length === 0) {
+                badge.innerText = 'Bitte mindestens 1 Aufgabe wählen';
+            } else {
+                badge.innerText = `${keys.length} ${keys.length === 1 ? 'Aufgabe' : 'Aufgaben'} · Richtwert ab ${sum} €`;
+            }
+        }
+
+        function transferRoomToCalculator() {
+            const keys = Object.keys(activeRoomTasks);
+            const sum = keys.length ? keys.reduce((acc, k) => acc + activeRoomTasks[k].price, 0) : 65;
+            const labels = keys.length ? keys.map(k => activeRoomTasks[k].label).join(' + ') : 'Individueller Handwerker-Einsatz';
+            const totalMax = Math.round(sum * 1.25);
+
+            navigateTo('rechner');
+            document.getElementById('priceRange').innerText = `${sum.toLocaleString()} € – ${totalMax.toLocaleString()} €`;
+            document.getElementById('summaryText').innerText = `Individuelle To-do-Liste: ${labels}`;
+            document.getElementById('hiddenDetails').value = `To-do-Liste: ${labels} | Schätzung: ${sum}€ - ${totalMax}€`;
+            goStep(3);
+        }
+
+        /* --- 3. 30-Sekunden-Preisrechner --- */
+        let state = { serviceName: '', basePrice: 0, sizeLabel: '', multiplier: 1 };
+
+        function goStep(step) {
+            document.querySelectorAll('.step-panel').forEach(el => el.classList.add('hidden'));
+            document.getElementById('step' + step).classList.remove('hidden');
+            let pct = step === 1 ? '33%' : (step === 2 ? '66%' : '100%');
+            document.getElementById('stepLabel').innerText = `Schritt ${step} von 3`;
+            document.getElementById('stepPercent').innerText = pct;
+            document.getElementById('progressBar').style.width = pct;
+        }
+
+        function selectService(name, price) {
+            state.serviceName = name;
+            state.basePrice = price;
+            goStep(2);
+        }
+
+        function selectSize(label, multiplier) {
+            state.sizeLabel = label;
+            state.multiplier = multiplier;
+
+            const totalMin = Math.round(state.basePrice * state.multiplier);
+            const totalMax = Math.round(totalMin * 1.25);
+
+            document.getElementById('priceRange').innerText = `${totalMin.toLocaleString()} € – ${totalMax.toLocaleString()} €`;
+            const summary = `${state.serviceName} (${state.sizeLabel})`;
+            document.getElementById('summaryText').innerText = summary;
+            document.getElementById('hiddenDetails').value = `${summary} | Schätzung: ${totalMin}€ - ${totalMax}€`;
+
+            goStep(3);
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'Wird gesendet...';
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+            const object = Object.fromEntries(formData);
+
+            try {
+                await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(object)
+                });
+            } catch (error) {}
+
+            this.classList.add('hidden');
+            document.getElementById('successBox').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
